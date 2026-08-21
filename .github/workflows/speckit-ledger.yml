@@ -5,10 +5,12 @@ on:
     paths:
       - "specs/**/tasks.md"
       - "specs/**/github-ledger.json"
+      - ".github/workflows/speckit-ledger.yml"
   push:
     paths:
       - "specs/**/tasks.md"
       - "specs/**/github-ledger.json"
+      - ".github/workflows/speckit-ledger.yml"
   workflow_dispatch:
 
 concurrency:
@@ -21,17 +23,17 @@ jobs:
     permissions:
       contents: read
       issues: read
-    uses: gptcompany/gobabygo/.github/workflows/speckit-ledger-reusable.yml@9e329decd8809a86f733ad426d2e6ab06278b417
+    uses: gptcompany/gobabygo/.github/workflows/speckit-ledger-reusable.yml@3c8768dd4163ba9b02b849a1ac3778f892d6c0ce
     with:
       mode: plan
-      runtime_ref: 9e329decd8809a86f733ad426d2e6ab06278b417
+      runtime_ref: 3c8768dd4163ba9b02b849a1ac3778f892d6c0ce
 
   apply:
     if: (github.event_name == 'push' && github.ref_name == github.event.repository.default_branch) || github.event_name == 'workflow_dispatch'
     permissions:
       contents: read
       issues: write
-    uses: gptcompany/gobabygo/.github/workflows/speckit-ledger-reusable.yml@9e329decd8809a86f733ad426d2e6ab06278b417
+    uses: gptcompany/gobabygo/.github/workflows/speckit-ledger-reusable.yml@3c8768dd4163ba9b02b849a1ac3778f892d6c0ce
     with:
       mode: apply
-      runtime_ref: 9e329decd8809a86f733ad426d2e6ab06278b417
+      runtime_ref: 3c8768dd4163ba9b02b849a1ac3778f892d6c0ce
