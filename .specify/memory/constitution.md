@@ -1,50 +1,58 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# Gobabygo Orchestration Canary Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Minimal Surface (NON-NEGOTIABLE)
+This repository is a disposable end-to-end canary for the Gobabygo development
+orchestration flow. Every feature stays as small as it can be while still
+exercising the full pipeline: spec, plan, tasks, ledger, delegated
+implementation, independent review, CI, merge, reconciliation. No feature may
+introduce a runtime third-party dependency.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Test-First (NON-NEGOTIABLE)
+Behaviour-changing source code requires a focused automated test that is
+observed failing (RED) before the production edit, then the minimum change that
+makes it pass (GREEN), then refactoring only while green. Tests use the Python
+standard library plus pytest as the runner. No mocks are used where the real
+value is directly observable.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Explicit Contracts
+Every public function documents its accepted input domain and its failure mode.
+Silent coercion of unsupported types is forbidden; unsupported input raises a
+typed error.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Authoritative Git Ledger
+`spec.md`, `plan.md` and `tasks.md` under `specs/` are authoritative. GitHub
+Issues are a one-way derived work ledger published only by the pinned
+`speckit-ledger` GitHub Action. No local process and no worker prompt may mutate
+issues directly.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Independent Review
+The author of a change never reviews it. Review runs read-only against an
+immutable commit range and must end with an explicit verdict. CI evidence is
+required in addition to human-or-agent review before merge.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Additional Constraints
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+- Language: Python 3.11+ standard library only for runtime code.
+- Runtime dependencies: none. Development dependencies: pytest only.
+- No production services, no secrets, no network access from library code.
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+## Development Workflow
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+1. Specification, plan and tasks are committed before implementation.
+2. A planning-only pull request is merged first; the ledger Action publishes the
+   derived issues from `main`.
+3. Implementation happens on a dedicated branch, delegated to a single writer.
+4. An independent reviewer inspects the frozen commit range read-only.
+5. Merge requires review PASS and green CI.
+6. `tasks.md` checkboxes are updated on `main` afterwards so the Action closes
+   the derived issues.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution supersedes ad-hoc practice inside this repository. Amendments
+require a commit that states the rationale. Any complexity beyond the minimum
+required to exercise the orchestration flow must be justified in `plan.md`.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2026-08-21 | **Last Amended**: 2026-08-21
