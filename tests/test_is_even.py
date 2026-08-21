@@ -26,3 +26,28 @@ def test_is_even_negative_even():
 
 def test_is_even_large_integer():
     assert is_even(10**30) is True
+
+
+def test_is_even_rejects_float():
+    with pytest.raises(TypeError, match="float"):
+        is_even(4.0)
+
+
+def test_is_even_rejects_str():
+    with pytest.raises(TypeError, match="str"):
+        is_even("4")
+
+
+def test_is_even_rejects_none():
+    with pytest.raises(TypeError, match="NoneType"):
+        is_even(None)
+
+
+def test_is_even_rejects_bool_true():
+    with pytest.raises(TypeError, match="bool"):
+        is_even(True)
+
+
+def test_is_even_rejects_bool_false():
+    with pytest.raises(TypeError, match="bool"):
+        is_even(False)
