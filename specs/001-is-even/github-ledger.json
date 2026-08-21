@@ -1,0 +1,6 @@
+{
+  "enabled": true,
+  "feature_id": "is-even-d4cb603bd73f",
+  "repository": "gptcompany/gobabygo-orchestration-canary",
+  "schema": "mesh.speckit.github-ledger.v1"
+}

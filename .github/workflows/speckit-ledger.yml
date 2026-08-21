@@ -21,17 +21,17 @@ jobs:
     permissions:
       contents: read
       issues: read
-    uses: gptcompany/gobabygo/.github/workflows/speckit-ledger-reusable.yml@a54201ef9d08f929d0300e7725240d3b7cfb2f70
+    uses: gptcompany/gobabygo/.github/workflows/speckit-ledger-reusable.yml@431a32829d8c1da423d9ff0d875944083f024042
     with:
       mode: plan
-      runtime_ref: a54201ef9d08f929d0300e7725240d3b7cfb2f70
+      runtime_ref: 431a32829d8c1da423d9ff0d875944083f024042
 
   apply:
     if: (github.event_name == 'push' && github.ref_name == github.event.repository.default_branch) || github.event_name == 'workflow_dispatch'
     permissions:
       contents: read
       issues: write
-    uses: gptcompany/gobabygo/.github/workflows/speckit-ledger-reusable.yml@a54201ef9d08f929d0300e7725240d3b7cfb2f70
+    uses: gptcompany/gobabygo/.github/workflows/speckit-ledger-reusable.yml@431a32829d8c1da423d9ff0d875944083f024042
     with:
       mode: apply
-      runtime_ref: a54201ef9d08f929d0300e7725240d3b7cfb2f70
+      runtime_ref: 431a32829d8c1da423d9ff0d875944083f024042
