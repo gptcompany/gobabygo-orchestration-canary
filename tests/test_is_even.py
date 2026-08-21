@@ -28,26 +28,38 @@ def test_is_even_large_integer():
     assert is_even(10**30) is True
 
 
+def test_is_even_large_odd_integer():
+    assert is_even(10**30 + 1) is False
+
+
+def test_is_even_large_negative_even_integer():
+    assert is_even(-(10**30)) is True
+
+
+def test_is_even_large_negative_odd_integer():
+    assert is_even(-(10**30 + 1)) is False
+
+
 def test_is_even_rejects_float():
-    with pytest.raises(TypeError, match="float"):
+    with pytest.raises(TypeError, match=r"^Expected int, got float$"):
         is_even(4.0)
 
 
 def test_is_even_rejects_str():
-    with pytest.raises(TypeError, match="str"):
+    with pytest.raises(TypeError, match=r"^Expected int, got str$"):
         is_even("4")
 
 
 def test_is_even_rejects_none():
-    with pytest.raises(TypeError, match="NoneType"):
+    with pytest.raises(TypeError, match=r"^Expected int, got NoneType$"):
         is_even(None)
 
 
 def test_is_even_rejects_bool_true():
-    with pytest.raises(TypeError, match="bool"):
+    with pytest.raises(TypeError, match=r"^Expected int, got bool$"):
         is_even(True)
 
 
 def test_is_even_rejects_bool_false():
-    with pytest.raises(TypeError, match="bool"):
+    with pytest.raises(TypeError, match=r"^Expected int, got bool$"):
         is_even(False)
